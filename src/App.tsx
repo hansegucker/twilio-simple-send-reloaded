@@ -243,7 +243,7 @@ const Main = (props: MainProps) => {
                     const {number} = value;
                     if (rawNumbers.indexOf(number.number) !== -1) {
                         // Skip duplicate numbers
-                        return;
+                        return value;
                     }
                     detectedNumbersTemp += 1;
                     if (number.isPossible() && number.isValid()) {
@@ -272,6 +272,7 @@ const Main = (props: MainProps) => {
                             };
                         }
                     }
+                    return value;
                 });
                 setDetectedNumbers(detectedNumbersTemp);
                 setValidNumbers(validNumbersTemp);
