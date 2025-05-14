@@ -26,8 +26,8 @@ To package apps for the local platform:
 yarn run build
 ```
 
-
 ## License
 
 **MIT**
+
 - Copyright © 2ß21-2022 Jonathan Weth

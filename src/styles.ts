@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -14,24 +14,24 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1),
   },
   section: {
-    height: '100%',
+    height: "100%",
   },
   gridIcon: {
     margin: 16,
   },
   fileInput: {
-    display: 'none',
+    display: "none",
   },
   fileLabel: {
-    marginLeft: '10px',
+    marginLeft: "10px",
   },
   marginBottom: {
     marginBottom: theme.spacing(1),
   },
   circular: {
-    minWidth: '200px',
-    display: 'flex',
-    justifyContent: 'center',
+    minWidth: "200px",
+    display: "flex",
+    justifyContent: "center",
     marginBottom: theme.spacing(3),
   },
 }));
