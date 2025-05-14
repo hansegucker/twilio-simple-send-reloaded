@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "@fontsource/roboto";
 import "./App.css";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import { DataGrid, GridRowsProp, GridColDef } from "@material-ui/data-grid";
-import IconButton from "@material-ui/core/IconButton";
-import SettingsIcon from "@material-ui/icons/Settings";
-import { CloudUpload } from "@material-ui/icons";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import { DataGrid, GridRowsProp, GridColDef } from "@mui/x-data-grid";
+import IconButton from "@mui/material/IconButton";
+import SettingsIcon from "@mui/icons-material/Settings";
+import { CloudUpload } from "@mui/icons-material";
 import {
   Button,
   Card,
@@ -20,16 +20,20 @@ import {
   DialogTitle,
   Grid,
   TextField,
-} from "@material-ui/core";
+  ThemeProvider,
+} from "@mui/material";
 import {
   E164Number,
   findPhoneNumbersInText,
   PhoneNumber,
 } from "libphonenumber-js";
-import Snackbar from "@material-ui/core/Snackbar";
-import Alert from "@material-ui/lab/Alert";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
 import useStyles from "./styles";
 import { AxiosResponse } from "axios";
+import { createTheme } from "@mui/material/styles";
+
+const theme = createTheme();
 
 const axios = require("axios").default;
 
@@ -379,7 +383,6 @@ const Main = (props: MainProps) => {
           There was an error while parsing the file.
         </Alert>
       </Snackbar>
-
       <Snackbar
         open={snackbar === "parse_success"}
         autoHideDuration={3000}
@@ -389,7 +392,6 @@ const Main = (props: MainProps) => {
           The file has been successfully parsed.
         </Alert>
       </Snackbar>
-
       <Snackbar
         open={snackbar === "send_disabled"}
         autoHideDuration={3000}
@@ -400,14 +402,12 @@ const Main = (props: MainProps) => {
           Twilio API not configured
         </Alert>
       </Snackbar>
-
       <Dialog open={progress}>
         <DialogTitle>Please wait</DialogTitle>
         <DialogContent className={classes.circular}>
           <CircularProgress />
         </DialogContent>
       </Dialog>
-
       <Card className={classes.marginBottom}>
         <CardContent>
           <Typography
@@ -478,14 +478,13 @@ const Main = (props: MainProps) => {
           </div>
         </CardContent>
       </Card>
-
       <Grid
         container
-        justify="center"
+        justifyContent="center"
         spacing={1}
         className={classes.marginBottom}
       >
-        <Grid item xs={12} sm={4}>
+        <Grid size={{ xs: 12, sm: 4 }}>
           <Card>
             <CardContent>
               <Typography variant="h3">{detectedNumbers}</Typography>
@@ -493,7 +492,7 @@ const Main = (props: MainProps) => {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={12} sm={4}>
+        <Grid size={{ xs: 12, sm: 4 }}>
           <Card>
             <CardContent>
               <Typography variant="h3">{validNumbers}</Typography>
@@ -501,7 +500,7 @@ const Main = (props: MainProps) => {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={12} sm={4}>
+        <Grid size={{ xs: 12, sm: 4 }}>
           <Card>
             <CardContent>
               <Typography variant="h3">{mobileNumbers}</Typography>
@@ -510,7 +509,6 @@ const Main = (props: MainProps) => {
           </Card>
         </Grid>
       </Grid>
-
       <DataGrid
         rows={rows}
         columns={columns}
@@ -597,49 +595,52 @@ export default function App(props: unknown) {
     loadSettings();
   };
   return (
-    <div>
-      <Snackbar
-        open={snackbar === "settings_success"}
-        autoHideDuration={3000}
-        onClose={closeSnackbar}
-      >
-        <Alert onClose={closeSnackbar} severity="success">
-          The settings have been successfully saved.
-        </Alert>
-      </Snackbar>
-      <header>
-        <AppBar position="static">
-          <Toolbar>
-            <Typography variant="h6" className={classes.title}>
-              Twilio: Simple Send
-            </Typography>
-            <IconButton
-              edge="end"
-              color="inherit"
-              onClick={() => {
-                setSettingsOpen(true);
-              }}
-            >
-              <SettingsIcon />
-            </IconButton>
-          </Toolbar>
-        </AppBar>
-      </header>
-      <Settings
-        open={settingsOpen}
-        onClose={() => {
-          setSettingsOpen(false);
-        }}
-        onSave={saveSettings}
-        settings={settings}
-      />
-      <main className={classes.main}>
-        <Router>
-          <Routes>
-            <Route path="/" element={<Main settings={settings} />} />
-          </Routes>
-        </Router>
-      </main>
-    </div>
+    <ThemeProvider theme={theme}>
+      <div>
+        <Snackbar
+          open={snackbar === "settings_success"}
+          autoHideDuration={3000}
+          onClose={closeSnackbar}
+        >
+          <Alert onClose={closeSnackbar} severity="success">
+            The settings have been successfully saved.
+          </Alert>
+        </Snackbar>
+        <header>
+          <AppBar position="static">
+            <Toolbar>
+              <Typography variant="h6" className={classes.title}>
+                Twilio: Simple Send
+              </Typography>
+              <IconButton
+                edge="end"
+                color="inherit"
+                onClick={() => {
+                  setSettingsOpen(true);
+                }}
+                size="large"
+              >
+                <SettingsIcon />
+              </IconButton>
+            </Toolbar>
+          </AppBar>
+        </header>
+        <Settings
+          open={settingsOpen}
+          onClose={() => {
+            setSettingsOpen(false);
+          }}
+          onSave={saveSettings}
+          settings={settings}
+        />
+        <main className={classes.main}>
+          <Router>
+            <Routes>
+              <Route path="/" element={<Main settings={settings} />} />
+            </Routes>
+          </Router>
+        </main>
+      </div>
+    </ThemeProvider>
   );
 }

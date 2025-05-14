@@ -1,17 +1,17 @@
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
   menuButton: {
-    marginRight: theme.spacing(2),
+    marginRight: "8px",
   },
   title: {
     flexGrow: 1,
   },
   main: {
-    padding: theme.spacing(1),
+    padding: "4px",
   },
   section: {
     height: "100%",
@@ -26,13 +26,13 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "10px",
   },
   marginBottom: {
-    marginBottom: theme.spacing(1),
+    marginBottom: "4px",
   },
   circular: {
     minWidth: "200px",
     display: "flex",
     justifyContent: "center",
-    marginBottom: theme.spacing(3),
+    marginBottom: "12px",
   },
 }));
 
