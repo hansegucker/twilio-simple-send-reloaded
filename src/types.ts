@@ -1,6 +1,4 @@
-import {
-  PhoneNumber,
-} from "libphonenumber-js";
+import { PhoneNumber } from "libphonenumber-js";
 
 export interface SettingsObject {
   fromNumber: string;

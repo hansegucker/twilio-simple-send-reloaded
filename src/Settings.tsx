@@ -12,14 +12,12 @@ import Alert from "@mui/material/Alert";
 
 import type { SettingsObject } from "./types";
 
-
 interface SettingsProps {
   open: boolean;
   onClose: () => void;
   onSave: (settingsObject: SettingsObject) => void;
   settings: SettingsObject;
 }
-
 
 export default (props: SettingsProps) => {
   const { open, settings } = props;

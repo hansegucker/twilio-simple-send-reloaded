@@ -15,17 +15,14 @@ import {
   Grid,
   TextField,
 } from "@mui/material";
-import {
-  E164Number,
-  findPhoneNumbersInText,
-} from "libphonenumber-js";
+import { E164Number, findPhoneNumbersInText } from "libphonenumber-js";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import useStyles from "./styles";
 import { AxiosResponse } from "axios";
 import axios from "axios";
 import type { SettingsObject, PhoneNumberStatus } from "./types";
-import {COUNTRY_CODE, SMS_LENGTH} from "./types"
+import { COUNTRY_CODE, SMS_LENGTH } from "./types";
 
 interface MainProps {
   settings: SettingsObject;
