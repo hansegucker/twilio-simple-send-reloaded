@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router";
 import "@fontsource/roboto";
 import "./App.css";
 import AppBar from "@mui/material/AppBar";
@@ -32,10 +32,9 @@ import Alert from "@mui/material/Alert";
 import useStyles from "./styles";
 import { AxiosResponse } from "axios";
 import { createTheme } from "@mui/material/styles";
+import axios from "axios";
 
 const theme = createTheme();
-
-const axios = require("axios").default;
 
 const COUNTRY_CODE = "DE";
 const SMS_LENGTH = 160;
@@ -195,15 +194,15 @@ const Main = (props: MainProps) => {
       field: "number",
       headerName: "Phone number",
       width: 200,
-      valueGetter: (params) => {
+      valueGetter: (value) => {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        return params.value.format("INTERNATIONAL");
+        return value.format("INTERNATIONAL");
       },
     },
     {
       field: "status",
-      headerName: "Comletely sent",
+      headerName: "Completely sent",
       width: 100,
       type: "boolean",
     },
@@ -430,41 +429,38 @@ const Main = (props: MainProps) => {
 
                   if (e.target.files) {
                     const file = e.target.files[0];
+                    console.log(e.target);
                     console.log("FIle threre", file.type);
-                    if (file.type.indexOf("text") !== -1) {
-                      console.log("Files text");
-                      // Read and parse file content
-                      const reader = new FileReader();
-                      reader.onerror = causeParseError;
-                      reader.onabort = causeParseError;
-                      reader.onload = function fileReadCompleted() {
-                        const fileContent = reader.result || "";
-                        console.log(fileContent);
-                        if (typeof fileContent === "string") {
-                          setProgress(true);
-                          parsePhoneNumbers(fileContent)
-                            .then(
-                              (parsedNumbers: {
-                                [key: string]: PhoneNumberStatus;
-                              }) => {
-                                setPhoneNumbers(parsedNumbers);
-                                setProgress(false);
-                                setSnackbar("parse_success");
-                                return parsedNumbers;
-                              },
-                            )
-                            .catch(() => {
-                              causeParseError();
+                    console.log("Files text");
+                    // Read and parse file content
+                    const reader = new FileReader();
+                    reader.onerror = causeParseError;
+                    reader.onabort = causeParseError;
+                    reader.onload = function fileReadCompleted() {
+                      const fileContent = reader.result || "";
+                      console.log(fileContent);
+                      if (typeof fileContent === "string") {
+                        setProgress(true);
+                        parsePhoneNumbers(fileContent)
+                          .then(
+                            (parsedNumbers: {
+                              [key: string]: PhoneNumberStatus;
+                            }) => {
+                              setPhoneNumbers(parsedNumbers);
                               setProgress(false);
-                            });
-                        } else {
-                          causeParseError();
-                        }
-                      };
-                      reader.readAsText(file);
-                    } else {
-                      causeParseError();
-                    }
+                              setSnackbar("parse_success");
+                              return parsedNumbers;
+                            },
+                          )
+                          .catch(() => {
+                            causeParseError();
+                            setProgress(false);
+                          });
+                      } else {
+                        causeParseError();
+                      }
+                    };
+                    reader.readAsText(file);
                   } else {
                     causeParseError();
                   }
@@ -634,11 +630,11 @@ export default function App(props: unknown) {
           settings={settings}
         />
         <main className={classes.main}>
-          <Router>
+          <BrowserRouter>
             <Routes>
               <Route path="/" element={<Main settings={settings} />} />
             </Routes>
-          </Router>
+          </BrowserRouter>
         </main>
       </div>
     </ThemeProvider>

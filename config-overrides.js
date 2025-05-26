@@ -12,13 +12,8 @@ module.exports = function override(config) {
     fs: false,
     net: require.resolve("net"),
     tls: require.resolve("tls"),
+    "process/browser": require.resolve("process/browser"),
   });
   config.resolve.fallback = fallback;
-  config.plugins = (config.plugins || []).concat([
-    new webpack.ProvidePlugin({
-      process: "process/browser",
-      Buffer: ["buffer", "Buffer"],
-    }),
-  ]);
   return config;
 };
