@@ -23,4 +23,4 @@ jobs:
         with:
           personal_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh_pages
-          publish_dir: ./build
+          publish_dir: ./build/client

@@ -30,4 +30,4 @@ yarn run build
 
 **MIT**
 
-- Copyright © 2ß21-2022 Jonathan Weth
+- Copyright © 2021-2025 Jonathan Weth
